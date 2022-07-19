@@ -66,6 +66,10 @@ module RSpec
         self
       end
 
+      def once
+        exactly(1).times
+      end
+
       def twice
         exactly(2).times
       end

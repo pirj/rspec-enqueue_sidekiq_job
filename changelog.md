@@ -1,5 +1,6 @@
 ### Edge
 
+ - Add `once` countable qualifier syntax sugar (#2, @inkstak)
 
 ### 1.2.0 - 2021-03-28
 

@@ -102,6 +102,21 @@ RSpec.describe RSpec::EnqueueSidekiqJob do
         .and enqueue_sidekiq_job(another_worker)
     end
 
+    it 'passes when explicitly expected to be enqueued once' do
+      expect {
+        worker.perform_async
+      }.to enqueue_sidekiq_job(worker).once
+    end
+
+    it 'fails when explicitly expected to be enqueued once, but enqueued twice' do
+      expect {
+        expect {
+          worker.perform_async
+          worker.perform_async
+        }.to enqueue_sidekiq_job(worker).once
+      }.to raise_error(/expected to enqueue/)
+    end
+
     it 'passes when explicitly expected to be enqueued twice' do
       expect {
         worker.perform_async
