@@ -6,20 +6,34 @@ module RSpec
   module EnqueueSidekiqJob
     # Checks if a certain job was enqueued in a block.
     #
-    # expect { AwesomeWorker.perform_async }
-    #   .to enqueue_sidekiq_job(AwesomeWorker)
+    # @example
+    #   expect { AwesomeWorker.perform_async }
+    #     .to enqueue_sidekiq_job(AwesomeWorker)
     #
+    # @example Matching on arguments
+    #   expect { AwesomeWorker.perform_async(42, 'David')
+    #     .to enqueue_sidekiq_job(AwesomeWorker).with(42, 'David')
     #
-    # expect { AwesomeWorker.perform_async(42, 'David')
-    #   .to enqueue_sidekiq_job(AwesomeWorker).with(42, 'David')
+    # @example Matching time with `at`
+    #   time = 5.minutes.from_now
+    #   expect { AwesomeWorker.perform_at(time) }
+    #     .to enqueue_sidekiq_job(AwesomeWorker).at(time)
     #
-    # time = 5.minutes.from_now
-    # expect { AwesomeWorker.perform_at(time) }
-    #   .to enqueue_sidekiq_job(AwesomeWorker).at(time)
+    # @example Matching time relatively with `in`
+    #   interval = 5.minutes
+    #   expect { AwesomeWorker.perform_in(interval) }
+    #     .to enqueue_sidekiq_job(AwesomeWorker).in(5.minutes)
     #
-    # interval = 5.minutes
-    # expect { AwesomeWorker.perform_in(interval) }
-    #   .to enqueue_sidekiq_job(AwesomeWorker).in(5.minutes)
+    # @example Matching counts
+    #   expect {
+    #     AwesomeWorker.perform_async
+    #     AwesomeWorker.perform_async
+    #   }.to enqueue_sidekiq_job(AwesomeWorker).twice
+    #
+    # @example Matching counts - more
+    #   enqueue_sidekiq_job(AwesomeWorker).once
+    #   enqueue_sidekiq_job(AwesomeWorker).twice
+    #   enqueue_sidekiq_job(AwesomeWorker).exactly(3).times
     #
     def enqueue_sidekiq_job(worker_class)
       Matcher.new(worker_class)
