@@ -279,14 +279,14 @@ RSpec.describe RSpec::EnqueueSidekiqJob do
     it 'passes with provided arguments' do
       expect {
         worker.perform_async(42, 'David')
-        "David"
+        'David'
       }.to enqueue_sidekiq_job(worker).with { |name| [42, name] }
     end
 
     it 'passes when negated and arguments do not match' do
-      expect expect {
+      expect {
         worker.perform_async(42, 'David')
-        "Phil"
+        'Phil'
       }.not_to enqueue_sidekiq_job(worker).with { |name| [42, name] }
     end
 
@@ -294,7 +294,7 @@ RSpec.describe RSpec::EnqueueSidekiqJob do
       expect {
         expect {
           worker.perform_async(42, 'David')
-          "Phil"
+          'Phil'
         }.to enqueue_sidekiq_job(worker).with { |name| [42, name] }
       }.to raise_error(/expected to enqueue.+arguments:/m)
     end
@@ -303,16 +303,16 @@ RSpec.describe RSpec::EnqueueSidekiqJob do
       expect {
         expect { worker.perform_async(42, 'David') }
           .to enqueue_sidekiq_job(worker).with(42) { |name| [42, name] }
-      }.to raise_error(ArgumentError, "setting arguments with block is not supported")
+      }.to raise_error(ArgumentError, 'setting arguments with block is not supported')
     end
 
     it 'rejects arguments returned from block if they are not an Array' do
       expect {
         expect {
           worker.perform_async(42, 'David')
-          "Phil"
+          'Phil'
         }.to enqueue_sidekiq_job(worker).with { |name| name }
-      }.to raise_error("`with` block is expected to return an Array")
+      }.to raise_error('`with` block is expected to return an Array')
     end
   end
 end

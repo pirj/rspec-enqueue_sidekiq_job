@@ -50,7 +50,7 @@ module RSpec
 
       def with(*expected_arguments, &block)
         if block
-          raise ArgumentError, "setting arguments with block is not supported" if expected_arguments.any?
+          raise ArgumentError, 'setting arguments with block is not supported' if expected_arguments.any?
 
           @expected_arguments = block
         else
@@ -144,7 +144,7 @@ module RSpec
 
         if @expected_arguments.is_a?(Proc)
           arguments = @expected_arguments.call(result)
-          raise "`with` block is expected to return an Array" unless arguments.is_a?(Array)
+          raise '`with` block is expected to return an Array' unless arguments.is_a?(Array)
 
           @expected_arguments = normalize_arguments(arguments)
         end
