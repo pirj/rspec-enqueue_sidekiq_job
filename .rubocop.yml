@@ -7,12 +7,19 @@ AllCops:
   NewCops: disable
   TargetRubyVersion: 2.4
 
-Metrics/BlockLength:
+Lint/AmbiguousBlockAssociation:
   Exclude:
     - spec/**/*.rb
 
 Metrics/AbcSize:
   Max: 18
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*.rb
+
+Metrics/ClassLength:
+  Max: 120
 
 Style/FrozenStringLiteralComment:
   Enabled: false
